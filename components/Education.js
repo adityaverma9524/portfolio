@@ -37,9 +37,7 @@ export default function Education() {
             <h3 className="text-xl font-semibold text-indigo-400 mb-1">Thapar Institute of Engineering & Technology</h3>
             <p className="text-gray-300 text-sm">B.E. in Electronics & Communication Engineering</p>
             <p className="text-gray-400 text-sm mt-1">2022 – 2026</p>
-            <p className="text-gray-300 text-sm mt-2">
-              CGPA: <span className="text-white font-medium">8.7 / 10</span> (Current)
-            </p>
+            
           </div>
         </motion.div>
       </div>
