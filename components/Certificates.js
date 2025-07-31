@@ -32,16 +32,23 @@ const certificates = [
 
 export default function Certificates() {
   return (
-    <section id="certificates" className="py-20 px-6 bg-gradient-to-b from-[#1f2937] to-[#0f172a] text-white relative overflow-hidden">
-      {/* Subtle Background */}
+    <section
+      id="certificates"
+      className="relative py-24 px-6 bg-gradient-to-b from-[#1f2937] to-[#0f172a] text-white overflow-hidden"
+    >
+      {/* Subtle Grid Background */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] bg-repeat z-0" />
+
+      {/* Glowing Blurs */}
+      <div className="absolute -top-24 -left-24 w-72 h-72 bg-indigo-500/30 rounded-full blur-3xl animate-pulse z-0" />
+      <div className="absolute -bottom-32 -right-28 w-80 h-80 bg-fuchsia-600/30 rounded-full blur-3xl animate-ping z-0" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-indigo-500 mb-12 text-center"
+          className="text-4xl font-bold text-white mb-12 text-center tracking-tight"
         >
           Certifications
         </motion.h2>
@@ -50,17 +57,26 @@ export default function Certificates() {
           {certificates.map((cert, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15 }}
-              className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 shadow-md hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
+              transition={{
+                delay: index * 0.15,
+                duration: 0.6,
+                type: 'spring',
+                stiffness: 80
+              }}
+              whileHover={{ scale: 1.03, rotate: 0.5 }}
+              className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 shadow-[0_0_30px_rgba(16,185,129,0.25)] hover:shadow-[0_0_50px_rgba(139,92,246,0.4)] transition-all duration-500 cursor-pointer group"
             >
-              <h3 className="text-lg font-semibold text-indigo-400 mb-1">{cert.title}</h3>
-              <p className="text-sm text-gray-300 mb-4">{cert.issuer}</p>
+              <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-indigo-400 transition">
+                {cert.title}
+              </h3>
+              <p className="text-sm text-gray-300 mb-4 group-hover:text-gray-200 transition">{cert.issuer}</p>
               <a
                 href={cert.link}
                 target="_blank"
-                className="inline-flex items-center gap-1 text-indigo-300 hover:text-white transition text-sm"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-emerald-300 hover:text-white transition text-sm"
               >
                 <ExternalLink size={16} /> View Certificate
               </a>

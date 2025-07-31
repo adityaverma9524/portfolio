@@ -1,4 +1,5 @@
 'use client';
+
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 
@@ -26,16 +27,20 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 px-6 bg-gradient-to-b from-[#1f2937] to-[#0f172a] text-white relative overflow-hidden">
-      {/* Subtle Background */}
+    <section id="projects" className="relative py-24 px-6 bg-gradient-to-b from-[#1f2937] to-[#0f172a] text-white overflow-hidden">
+      {/* Background Grid */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] bg-repeat z-0" />
+
+      {/* Animated Accent Glows */}
+      <div className="absolute top-[15%] left-[10%] w-[180px] h-[180px] bg-indigo-500/30 blur-3xl rounded-full animate-pulse z-0" />
+      <div className="absolute bottom-[20%] right-[10%] w-[200px] h-[200px] bg-fuchsia-500/20 blur-2xl rounded-full animate-ping z-0" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-indigo-500 mb-12 text-center"
+          className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-fuchsia-500 mb-16"
         >
           Projects
         </motion.h2>
@@ -44,14 +49,16 @@ export default function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-              className="group bg-white/5 backdrop-blur-lg p-6 rounded-xl border border-white/10 shadow-md transition-transform hover:-translate-y-2 hover:shadow-lg duration-300"
+              transition={{ delay: index * 0.2, duration: 0.6 }}
+              className="group bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-[0_0_25px_rgba(139,92,246,0.15)] hover:shadow-[0_0_40px_rgba(139,92,246,0.3)] hover:border-indigo-500 transition-all duration-500"
             >
               <div>
-                <h3 className="text-xl font-semibold text-indigo-400 mb-2">{project.name}</h3>
-                <p className="text-gray-300 mb-4 leading-relaxed text-sm">{project.desc}</p>
+                <h3 className="text-xl font-semibold text-indigo-400 group-hover:text-indigo-300 transition mb-2 tracking-wide">
+                  {project.name}
+                </h3>
+                <p className="text-gray-300 text-sm mb-4 leading-relaxed">{project.desc}</p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech, idx) => (
@@ -70,6 +77,7 @@ export default function Projects() {
                   <a
                     href={project.github}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm text-indigo-300 hover:text-white transition"
                   >
                     <Github size={18} /> GitHub
@@ -79,6 +87,7 @@ export default function Projects() {
                   <a
                     href={project.live}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm text-indigo-300 hover:text-white transition"
                   >
                     <ExternalLink size={18} /> Live
