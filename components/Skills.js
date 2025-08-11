@@ -6,7 +6,15 @@ const skills = {
   'Frameworks & Libraries': ['Next.js', 'Node.js', 'Express.js', 'Spring (basic)', 'MVC frameworks'],
   'Tools & Platforms': ['Git', 'GitHub', 'Linux', 'Vercel', 'Postman', 'Swagger'],
   'Databases & Cloud': ['MongoDB', 'MySQL', 'Cloudinary', 'Clerk'],
-  'Core Concepts': ['DSA', 'RESTful APIs', 'OOP', 'Authentication']
+  'Core Concepts': [
+    'Data Structures & Algorithms (DSA)',
+    'Operating Systems',
+    'RESTful APIs',
+    'Database Management Systems (DBMS)',
+    'Object-Oriented Programming (OOP)',
+    'Computer Networks', 
+    'Authentication'
+  ]
 };
 
 export default function Skills() {
