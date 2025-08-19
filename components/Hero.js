@@ -1,10 +1,26 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDownTrayIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import Tilt from 'react-parallax-tilt';
 
 export default function Hero() {
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const generated = [...Array(8)].map(() => ({
+      x: Math.random() * width - width / 2,
+      y: Math.random() * height - height / 2,
+      duration: 8 + Math.random() * 4,
+      delay: Math.random() * 6,
+    }));
+    setParticles(generated);
+  }, []);
+
   return (
     <section
       className="relative h-screen w-full flex flex-col items-center justify-center text-white overflow-hidden px-6 sm:px-8 md:px-12 scroll-smooth"
@@ -20,9 +36,12 @@ export default function Hero() {
         transition={{ duration: 2, ease: 'easeOut' }}
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 z-10 backdrop-blur-sm" aria-hidden="true" />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 z-10 backdrop-blur-sm"
+        aria-hidden="true"
+      />
 
-      {/* Accent Glows - toned down for subtlety */}
+      {/* Accent Glows */}
       <motion.div
         className="absolute top-[12%] left-[12%] w-[260px] h-[260px] bg-indigo-500/20 rounded-full blur-3xl animate-[pulse_3s_ease-in-out_infinite] z-0"
         initial={{ scale: 0, opacity: 0 }}
@@ -38,24 +57,17 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      {/* Floating Particles - smaller, fewer, slower for subtle ambiance */}
-      {[...Array(8)].map((_, i) => (
+      {/* Floating Particles */}
+      {particles.map((p, i) => (
         <motion.span
           key={i}
           className="absolute w-1.5 h-1.5 bg-white/30 rounded-full"
-          initial={{
-            x: Math.random() * window.innerWidth - window.innerWidth / 2,
-            y: Math.random() * window.innerHeight - window.innerHeight / 2,
-            opacity: 0,
-          }}
-          animate={{
-            y: ['0%', '-100%'],
-            opacity: [0, 0.7, 0],
-          }}
+          initial={{ x: p.x, y: p.y, opacity: 0 }}
+          animate={{ y: ['0%', '-100%'], opacity: [0, 0.7, 0] }}
           transition={{
-            duration: 8 + Math.random() * 4,
+            duration: p.duration,
             repeat: Infinity,
-            delay: Math.random() * 6,
+            delay: p.delay,
             ease: 'easeInOut',
           }}
           aria-hidden="true"
@@ -114,7 +126,10 @@ export default function Hero() {
         <motion.a
           href="/AdityaVerma_Resume.pdf"
           download
-          whileHover={{ scale: 1.1, boxShadow: '0 0 25px rgba(139,92,246,0.75)' }}
+          whileHover={{
+            scale: 1.1,
+            boxShadow: '0 0 25px rgba(139,92,246,0.75)',
+          }}
           whileTap={{ scale: 0.95 }}
           className="mt-10 inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white font-semibold shadow-xl transition-all cursor-pointer select-none focus:outline-none focus:ring-4 focus:ring-indigo-500"
           aria-label="Download Aditya Verma's Resume"
@@ -126,19 +141,25 @@ export default function Hero() {
         {/* Scroll Down Indicator */}
         <motion.button
           aria-label="Scroll down to about section"
-          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() =>
+            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+          }
           className="mt-12 flex flex-col items-center text-indigo-400 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-400 rounded"
           animate={{ y: [0, 12, 0] }}
           transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
-              document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+              document
+                .getElementById('about')
+                ?.scrollIntoView({ behavior: 'smooth' });
             }
           }}
         >
           <ChevronDownIcon className="w-9 h-9" />
-          <span className="mt-1 text-xs font-light tracking-wide animate-pulse select-none">Scroll</span>
+          <span className="mt-1 text-xs font-light tracking-wide animate-pulse select-none">
+            Scroll
+          </span>
         </motion.button>
       </motion.div>
     </section>
