@@ -38,57 +38,65 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative pt-24 pb-10 px-6 bg-[#0f172a] text-white overflow-hidden scroll-smooth"
+      className="relative py-24 px-6 bg-gradient-to-b from-[#111827] to-[#1f2937] text-white overflow-hidden scroll-smooth"
     >
+      {/* Subtle Background */}
+      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] bg-repeat z-0" />
+
       {/* Accent Glows */}
-      <div className="absolute top-[15%] left-[10%] w-[200px] h-[200px] bg-indigo-500/30 blur-3xl rounded-full animate-pulse z-0" />
-      <div className="absolute bottom-[10%] right-[15%] w-[180px] h-[180px] bg-fuchsia-600/30 blur-2xl rounded-full animate-ping z-0" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90 z-10 backdrop-blur-sm" />
+      <div className="absolute top-[12%] left-[8%] w-[220px] h-[220px] bg-indigo-500/30 blur-3xl rounded-full animate-pulse z-0" />
+      <div className="absolute bottom-[12%] right-[10%] w-[200px] h-[200px] bg-fuchsia-600/30 blur-3xl rounded-full animate-ping z-0" />
 
       <div className="relative z-20 max-w-xl mx-auto">
+        {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-extrabold text-center tracking-tight text-indigo-400 mb-10"
+          className="text-4xl font-extrabold text-center mb-12"
         >
-          Let’s Connect
+          <span className="bg-gradient-to-r from-indigo-400 to-fuchsia-400 bg-clip-text text-transparent">
+            Let’s Connect
+          </span>
+          <span className="block mx-auto mt-2 h-[3px] w-20 bg-gradient-to-r from-indigo-400 to-fuchsia-400 rounded-full" />
         </motion.h2>
 
+        {/* Contact Form */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-white/5 border border-white/20 backdrop-blur-md p-8 rounded-2xl shadow-[0_0_50px_rgba(139,92,246,0.2)] hover:shadow-fuchsia-600/20 transition-all duration-500 space-y-5"
+          className="bg-black/40 border border-white/10 backdrop-blur-xl p-8 rounded-3xl shadow-[0_0_25px_rgba(139,92,246,0.2)] hover:shadow-[0_0_35px_rgba(139,92,246,0.35)] transition-all duration-500 space-y-5"
         >
           <input
             type="text"
             name="name"
             required
             placeholder="Your Name"
-            className="w-full px-4 py-3 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-white/70"
+            className="w-full px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-400 transition"
           />
           <input
             type="email"
             name="email"
             required
             placeholder="Your Email"
-            className="w-full px-4 py-3 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-white/70"
+            className="w-full px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-400 transition"
           />
           <textarea
             name="message"
             rows="5"
             required
             placeholder="Your Message"
-            className="w-full px-4 py-3 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-white/70"
+            className="w-full px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-gray-400 transition"
           />
 
+          {/* Submit Button */}
           <motion.button
             type="submit"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 transition text-white font-semibold flex items-center justify-center shadow-md"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 transition text-white font-semibold flex items-center justify-center shadow-lg"
             disabled={loading}
           >
             {loading ? (
@@ -116,8 +124,17 @@ export default function Contact() {
             {loading ? 'Sending...' : 'Send Message'}
           </motion.button>
 
-          {done && <p className="text-green-400 text-center mt-2">✅ Message sent successfully!</p>}
-          {error && <p className="text-red-400 text-center mt-2">{error}</p>}
+          {/* Success / Error Messages */}
+          {done && (
+            <p className="text-green-400 text-center mt-2 font-medium">
+              ✅ Message sent successfully!
+            </p>
+          )}
+          {error && (
+            <p className="text-red-400 text-center mt-2 font-medium">
+              {error}
+            </p>
+          )}
         </motion.form>
       </div>
     </section>

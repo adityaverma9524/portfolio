@@ -1,34 +1,85 @@
 'use client';
 import { motion } from 'framer-motion';
+import {
+  FaJava,
+  FaPython,
+  FaNodeJs,
+  FaGitAlt,
+  FaDocker,
+  FaLinux,
+} from 'react-icons/fa';
+import {
+  SiCplusplus,
+  SiTypescript,
+  SiJavascript,
+  SiReact,
+  SiNextdotjs,
+  SiMongodb,
+  SiMysql,
+  SiTensorflow,
+  SiPytorch,
+  SiPostman,
+  SiSwagger,
+  SiGithubactions,
+  SiVercel,
+  SiSpringboot,
+} from 'react-icons/si';
 
 const skills = {
-  Languages: ['C++', 'Python', 'Java', 'SQL', 'TypeScript', 'JavaScript'],
-  'Frameworks & Libraries': ['Next.js', 'Node.js', 'Express.js', 'Spring (basic)', 'MVC frameworks'],
-  'Tools & Platforms': ['Git', 'GitHub', 'Linux', 'Vercel', 'Postman', 'Swagger'],
-  'Databases & Cloud': ['MongoDB', 'MySQL', 'Cloudinary', 'Clerk'],
+  Languages: [
+    { name: 'C++', icon: <SiCplusplus /> },
+    { name: 'Java', icon: <FaJava /> },
+    { name: 'Python', icon: <FaPython /> },
+    { name: 'JavaScript', icon: <SiJavascript /> },
+    { name: 'TypeScript', icon: <SiTypescript /> },
+    { name: 'SQL', icon: <SiMysql /> },
+  ],
+  'Frameworks & Libraries': [
+    { name: 'React.js', icon: <SiReact /> },
+    { name: 'Next.js', icon: <SiNextdotjs /> },
+    { name: 'Node.js', icon: <FaNodeJs /> },
+    { name: 'Express.js', icon: <FaNodeJs /> },
+    { name: 'Spring Boot', icon: <SiSpringboot /> },
+    { name: 'TensorFlow (basic)', icon: <SiTensorflow /> },
+    { name: 'PyTorch (basic)', icon: <SiPytorch /> },
+  ],
+  'Databases & Cloud': [
+    { name: 'MongoDB', icon: <SiMongodb /> },
+    { name: 'MySQL', icon: <SiMysql /> },
+    { name: 'Docker', icon: <FaDocker /> },
+  ],
+  'Tools & Platforms': [
+    { name: 'Git & GitHub', icon: <FaGitAlt /> },
+    { name: 'Linux', icon: <FaLinux /> },
+    { name: 'Postman', icon: <SiPostman /> },
+    { name: 'Swagger', icon: <SiSwagger /> },
+    { name: 'GitHub Actions (CI/CD)', icon: <SiGithubactions /> },
+    { name: 'Vercel', icon: <SiVercel /> },
+  ],
   'Core Concepts': [
-    'Data Structures & Algorithms (DSA)',
-    'Operating Systems',
-    'RESTful APIs',
-    'Database Management Systems (DBMS)',
-    'Object-Oriented Programming (OOP)',
-    'Computer Networks', 
-    'Authentication'
-  ]
+    { name: 'Data Structures & Algorithms (DSA)', icon: '📊' },
+    { name: 'Object-Oriented Programming (OOP)', icon: '🧩' },
+    { name: 'Operating Systems', icon: '💻' },
+    { name: 'Database Management Systems (DBMS)', icon: '🗄️' },
+    { name: 'Computer Networks', icon: '🌐' },
+    { name: 'System Design', icon: '🏗️' },
+    { name: 'RESTful APIs', icon: '🔗' },
+    { name: 'Authentication & Security', icon: '🔒' },
+  ],
 };
 
 export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-24 px-6 bg-gradient-to-b from-[#0f172a] to-[#060b16] text-white overflow-hidden scroll-smooth"
+      className="relative py-24 px-6 bg-gradient-to-b from-[#111827] to-[#1f2937] text-white overflow-hidden scroll-smooth"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02] bg-repeat z-0" />
 
       {/* Accent Glows */}
-      <div className="absolute top-[12%] right-[10%] w-[180px] h-[180px] bg-indigo-500/25 blur-3xl rounded-full animate-pulse z-0" />
-      <div className="absolute bottom-[10%] left-[12%] w-[160px] h-[160px] bg-fuchsia-500/25 blur-2xl rounded-full animate-ping z-0" />
+      <div className="absolute top-[15%] right-[8%] w-[220px] h-[220px] bg-indigo-500/25 blur-3xl rounded-full animate-pulse z-0" />
+      <div className="absolute bottom-[12%] left-[10%] w-[200px] h-[200px] bg-fuchsia-500/25 blur-2xl rounded-full animate-ping z-0" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Section Heading */}
@@ -37,9 +88,12 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-fuchsia-500 mb-16"
+          className="text-4xl font-extrabold text-center mb-16"
         >
-          Skills & Technologies
+          <span className="bg-gradient-to-r from-indigo-400 to-fuchsia-400 bg-clip-text text-transparent">
+            Skills & Technologies
+          </span>
+          <span className="block mx-auto mt-2 h-[3px] w-20 bg-gradient-to-r from-indigo-400 to-fuchsia-400 rounded-full" />
         </motion.h2>
 
         {/* Skill Cards */}
@@ -51,19 +105,22 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.03 }}
-              className="bg-white/5 p-6 rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(139,92,246,0.15)] hover:shadow-[0_0_40px_rgba(139,92,246,0.4)] hover:border-indigo-500 transition-all duration-500 backdrop-blur-xl"
+              whileHover={{ scale: 1.04 }}
+              className="bg-black/40 p-8 rounded-3xl border border-white/10 shadow-[0_0_25px_rgba(139,92,246,0.2)] hover:shadow-[0_0_35px_rgba(139,92,246,0.4)] hover:border-indigo-400 transition-all duration-500 backdrop-blur-xl"
             >
-              <h3 className="text-xl font-semibold text-indigo-400 mb-4 border-b border-indigo-500 pb-2">
+              <h3 className="text-xl font-semibold text-indigo-400 mb-6 pb-2 border-b border-indigo-500/40">
                 {category}
               </h3>
               <div className="flex flex-wrap gap-3">
                 {items.map((skill) => (
                   <span
-                    key={skill}
-                    className="text-sm px-3 py-1 bg-indigo-600/20 text-indigo-100 rounded-full hover:bg-indigo-500/40 transition-all duration-300"
+                    key={skill.name || skill}
+                    className="flex items-center gap-2 text-sm px-3 py-1 bg-indigo-600/20 text-indigo-100 rounded-full hover:bg-indigo-500/40 transition-all duration-300 shadow-sm"
                   >
-                    {skill}
+                    <span className="text-lg">
+                      {skill.icon || '🔹'}
+                    </span>
+                    {skill.name || skill}
                   </span>
                 ))}
               </div>
