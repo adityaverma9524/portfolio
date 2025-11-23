@@ -187,26 +187,6 @@ export default function Hero() {
             >
               <FaEnvelope className="w-7 h-7 text-red-500" />
             </a>
-
-            {/* Instagram */}
-            <a
-              href="https://www.instagram.com/aditya_verma1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-black/50 border border-white/10 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(236,72,153,0.7)]"
-            >
-              <FaInstagram className="w-7 h-7 text-pink-500" />
-            </a>
-
-            {/* LeetCode */}
-            <a
-              href="https://leetcode.com/u/adityaverma0101"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-black/50 border border-white/10 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(245,158,11,0.7)]"
-            >
-              <SiLeetcode className="w-7 h-7 text-yellow-500" />
-            </a>
           </motion.div>
         </Tilt>
 
