@@ -2,240 +2,243 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import Tilt from 'react-parallax-tilt';
-import {
-  FaGithub,
-  FaLinkedin,
-  FaInstagram,
-  FaEnvelope,
-  FaFileAlt,
-  FaFolderOpen,
-} from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaFileAlt } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
+import { ChevronDown } from 'lucide-react';
 import { ReactTyped } from 'react-typed';
 
 export default function Hero() {
-  const [particles, setParticles] = useState([]);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  useEffect(() => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    const generated = [...Array(8)].map(() => ({
-      x: Math.random() * width - width / 2,
-      y: Math.random() * height - height / 2,
-      duration: 8 + Math.random() * 4,
-      delay: Math.random() * 6,
-    }));
-    setParticles(generated);
-  }, []);
+  const socials = [
+    { href: 'https://github.com/adityaverma9524', icon: <FaGithub size={18} />, label: 'GitHub' },
+    { href: 'https://linkedin.com/in/adityaverma0101', icon: <FaLinkedin size={18} />, label: 'LinkedIn' },
+    { href: 'mailto:adityaverma9524@gmail.com', icon: <FaEnvelope size={18} />, label: 'Email' },
+    { href: 'https://leetcode.com/u/adityaverma0101', icon: <SiLeetcode size={18} />, label: 'LeetCode' },
+  ];
 
   return (
     <section
-      className="relative h-screen w-full flex flex-col items-center justify-center text-white overflow-hidden px-6 sm:px-8 md:px-12 scroll-smooth"
-      aria-label="Hero section"
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+        padding: '100px 32px 60px',
+      }}
     >
-      {/* Background */}
-      <motion.img
-        src="/banner.png"
-        alt="Banner"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.5 }}
-        transition={{ duration: 2, ease: 'easeOut' }}
-        aria-hidden="true"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/95 z-10" />
+      {/* Background mesh */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 60%)',
+        pointerEvents: 'none',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'radial-gradient(ellipse 40% 40% at 85% 80%, rgba(201,168,76,0.04) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
 
-      {/* Accent Glows */}
+      {/* Decorative vertical line */}
       <motion.div
-        className="absolute top-[12%] left-[12%] w-[260px] h-[260px] bg-indigo-500/20 rounded-full blur-3xl animate-[pulse_3s_ease-in-out_infinite] z-0"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.6 }}
-        transition={{ delay: 0.5, duration: 1.5 }}
-      />
-      <motion.div
-        className="absolute bottom-[12%] right-[12%] w-[180px] h-[180px] bg-fuchsia-600/20 rounded-full blur-2xl animate-[ping_4s_ease-in-out_infinite] z-0"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.5 }}
-        transition={{ delay: 0.8, duration: 1.5 }}
+        initial={{ height: 0, opacity: 0 }}
+        animate={{ height: '120px', opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        style={{
+          position: 'absolute', left: '7%', top: '30%',
+          width: '1px', background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.4), transparent)',
+        }}
       />
 
-      {/* Floating Particles */}
-      {particles.map((p, i) => (
-        <motion.span
-          key={i}
-          className="absolute w-1.5 h-1.5 bg-white/30 rounded-full"
-          initial={{ x: p.x, y: p.y, opacity: 0 }}
-          animate={{ y: ['0%', '-100%'], opacity: [0, 0.7, 0] }}
-          transition={{
-            duration: p.duration,
-            repeat: Infinity,
-            delay: p.delay,
-            ease: 'easeInOut',
-          }}
-        />
-      ))}
-
-      {/* Main Content */}
-      <motion.div
-        className="relative z-20 w-full max-w-lg flex flex-col items-center"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: 'easeOut' }}
-      >
-        {/* Tilt Card */}
-        <Tilt
-          tiltMaxAngleX={3}
-          tiltMaxAngleY={3}
-          perspective={1200}
-          scale={1.02}
-          transitionSpeed={1500}
-          glareEnable={false}
-          className="w-full"
+      <div style={{ maxWidth: '860px', width: '100%', position: 'relative', zIndex: 1 }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
         >
+          {/* Available badge */}
           <motion.div
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 0 35px rgba(139,92,246,0.6)',
-            }}
-            transition={{ duration: 0.3 }}
-            className="bg-black/50 border border-white/10 rounded-3xl p-10 shadow-[0_0_20px_rgba(139,92,246,0.2)] flex flex-col items-center text-center transition-all duration-300"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            style={{ marginBottom: '28px' }}
           >
-            {/* Profile Picture */}
-            <div className="relative mb-6">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 blur-2xl opacity-30"></div>
-              <motion.img
-                src="/profile.jpeg"
-                alt="Aditya Verma"
-                className="relative sm:w-32 md:w-40 sm:h-32 md:h-40 rounded-full border-4 border-indigo-400 shadow-xl object-cover"
-                initial={{ scale: 0.85, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.3 }}
-                whileHover={{
-                  scale: 1.1,
-                  boxShadow: '0 0 35px rgba(139,92,246,0.9)',
-                }}
-              />
-            </div>
-
-            {/* Name */}
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 to-fuchsia-400 bg-clip-text text-transparent mb-2">
-              Aditya Verma
-            </h1>
-
-            {/* Role (typed once only) */}
-            <ReactTyped
-              strings={['Full-Stack Developer']}
-              typeSpeed={60}
-              showCursor={false}
-              loop={false}
-              className="text-base sm:text-lg text-indigo-300 font-semibold tracking-wide mb-4"
-            />
-
-            {/* Description */}
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-sm">
-              Passionate about building{' '}
-              <span className="text-indigo-400 font-semibold">scalable apps</span>,{' '}
-              <span className="text-fuchsia-400 font-semibold">AI-driven platforms</span>, and{' '}
-              <span className="text-indigo-400 font-semibold">seamless user experiences</span>.
-            </p>
+            <span className="gold-badge">
+              <span style={{ width: '6px', height: '6px', background: '#4ade80', borderRadius: '50%', display: 'inline-block' }} />
+              Software Engineering Intern @ Pratt &amp; Whitney
+            </span>
           </motion.div>
-        </Tilt>
 
-        {/* Social Media Icons */}
-        <Tilt
-          tiltMaxAngleX={3}
-          tiltMaxAngleY={3}
-          perspective={1200}
-          scale={1.02}
-          transitionSpeed={1500}
-          glareEnable={false}
-          className="mt-6"
-        >
+          {/* Name */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display"
+            style={{
+              fontSize: 'clamp(3.2rem, 8vw, 6.5rem)',
+              fontWeight: 600,
+              lineHeight: 1.02,
+              color: 'var(--cream)',
+              marginBottom: '8px',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Aditya<br />
+            <span className="gold-shimmer">Verma</span>
+          </motion.h1>
+
+          {/* Role typewriter */}
           <motion.div
-            className="flex items-center gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            transition={{ delay: 0.6, duration: 0.7 }}
+            style={{ marginBottom: '24px', marginTop: '4px' }}
           >
-            {/* GitHub */}
-            <a
-              href="https://github.com/adityaverma9524"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-black/50 border border-white/10 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(139,92,246,0.5)]"
-            >
-              <FaGithub className="w-7 h-7 text-gray-300 hover:text-white" />
-            </a>
-
-            {/* LinkedIn */}
-            <a
-              href="https://linkedin.com/in/adityaverma0101"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-black/50 border border-white/10 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(59,130,246,0.7)]"
-            >
-              <FaLinkedin className="w-7 h-7 text-blue-500" />
-            </a>
-
-            {/* Gmail */}
-            <a
-              href="mailto:averma6_be22@thapar.edu"
-              className="p-3 rounded-full bg-black/50 border border-white/10 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(239,68,68,0.7)]"
-            >
-              <FaEnvelope className="w-7 h-7 text-red-500" />
-            </a>
+            {mounted && (
+              <ReactTyped
+                strings={[
+                  'Full-Stack Developer',
+                  'Software Engineer',
+                  'AI/ML Enthusiast',
+                  'Problem Solver',
+                ]}
+                typeSpeed={55}
+                backSpeed={30}
+                backDelay={2000}
+                loop
+                style={{
+                  fontFamily: 'DM Sans, sans-serif',
+                  fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
+                  color: 'var(--gold)',
+                  fontWeight: 400,
+                  letterSpacing: '0.04em',
+                }}
+              />
+            )}
           </motion.div>
-        </Tilt>
 
-        {/* CTA Buttons */}
-        <div className="flex gap-4 mt-6">
-          {/* Resume Button */}
-          <motion.a
-            href="/AdityaVerma_Resume.pdf"
-            download
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 0 20px rgba(139,92,246,0.5)',
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.75, duration: 0.7 }}
+            style={{
+              fontSize: '1rem',
+              color: 'var(--text-secondary)',
+              maxWidth: '500px',
+              lineHeight: 1.75,
+              marginBottom: '40px',
+              fontWeight: 300,
             }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-black/50 border border-white/10 text-gray-200 hover:text-white transition-all duration-300 text-sm font-medium"
           >
-            <FaFileAlt className="w-5 h-5 text-indigo-400" />
-            Resume
-          </motion.a>
+            Building scalable full-stack applications and AI-driven platforms. Currently automating engineering workflows at Pratt &amp; Whitney. B.E. ECE at Thapar Institute, graduating May 2026.
+          </motion.p>
 
-          {/* Projects Button */}
-          <motion.a
-            href="#projects"
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 0 20px rgba(139,92,246,0.5)',
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-black/50 border border-white/10 text-indigo-300 hover:text-white transition-all duration-300 text-sm font-medium"
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.7 }}
+            style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '48px' }}
           >
-            <FaFolderOpen className="w-5 h-5 text-fuchsia-400" />
-            Projects
-          </motion.a>
-        </div>
+            <motion.a
+              href="#projects"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                padding: '13px 28px',
+                background: 'linear-gradient(135deg, var(--gold-dim), var(--gold))',
+                color: '#141418',
+                borderRadius: '8px',
+                fontWeight: 600,
+                fontSize: '0.88rem',
+                letterSpacing: '0.04em',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              View Projects
+            </motion.a>
+            <motion.a
+              href="/AdityaVerma_Resume.pdf"
+              download
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                padding: '12px 28px',
+                background: 'transparent',
+                border: '1px solid var(--border-hover)',
+                color: 'var(--cream-muted)',
+                borderRadius: '8px',
+                fontWeight: 500,
+                fontSize: '0.88rem',
+                letterSpacing: '0.04em',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'all 0.25s',
+              }}
+            >
+              <FaFileAlt size={14} /> Resume
+            </motion.a>
+          </motion.div>
 
-        {/* Scroll Down Indicator */}
-        <motion.button
-          aria-label="Scroll down to about section"
-          onClick={() =>
-            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
-          }
-          className="mt-14 sm:mt-16 flex flex-col items-center px-4 py-4 rounded-full bg-black/50 border border-white/10 text-indigo-300 hover:text-white transition-all duration-300 focus:outline-none focus:ring-0"
-          animate={{ y: [0, -30, 0] }}
-          transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <ChevronDownIcon className="w-7 h-7" />
-          <span className="mt-1 text-xs font-medium tracking-wide">Scroll</span>
-        </motion.button>
-      </motion.div>
+          {/* Socials */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.1, duration: 0.7 }}
+            style={{ display: 'flex', gap: '12px' }}
+          >
+            {socials.map((s) => (
+              <motion.a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                whileHover={{ scale: 1.12, y: -2 }}
+                style={{
+                  width: '40px', height: '40px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  background: 'rgba(201,168,76,0.07)',
+                  border: '1px solid rgba(201,168,76,0.18)',
+                  borderRadius: '8px',
+                  color: 'var(--gold-light)',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                }}
+              >
+                {s.icon}
+              </motion.a>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.button
+        onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 8, 0] }}
+        transition={{ delay: 1.5, duration: 2, repeat: Infinity, repeatType: 'loop' }}
+        style={{
+          position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)',
+          background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px',
+        }}
+        aria-label="Scroll down"
+      >
+        <span style={{ fontSize: '0.65rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>scroll</span>
+        <ChevronDown size={16} />
+      </motion.button>
     </section>
   );
 }

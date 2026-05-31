@@ -1,79 +1,65 @@
 'use client';
-
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
+
+const socials = [
+  { href: 'https://github.com/adityaverma9524', icon: <FaGithub size={16} />, label: 'GitHub' },
+  { href: 'https://linkedin.com/in/adityaverma0101', icon: <FaLinkedin size={16} />, label: 'LinkedIn' },
+  { href: 'mailto:adityaverma9524@gmail.com', icon: <FaEnvelope size={16} />, label: 'Email' },
+  { href: 'https://leetcode.com/u/adityaverma0101', icon: <SiLeetcode size={16} />, label: 'LeetCode' },
+];
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-b from-[#111827] to-[#1f2937] text-white py-10 border-t border-white/10 overflow-hidden">
-      {/* Accent Glows */}
-      <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-3xl opacity-30 z-0 animate-pulse" />
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-indigo-500/20 rounded-full blur-2xl opacity-25 z-0 animate-ping" />
-
-      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-sm relative z-10">
-        {/* Left Section: Info */}
+    <footer style={{
+      borderTop: '1px solid rgba(201,168,76,0.1)',
+      padding: '32px',
+    }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center md:text-left space-y-1"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
         >
-          <p className="text-gray-300">
-            &copy; {new Date().getFullYear()}{' '}
-            <span className="text-white font-medium">Aditya Verma</span>. All rights reserved.
+          <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+            <span style={{ fontFamily: 'Cormorant Garamond, serif', color: 'var(--cream-muted)', fontWeight: 500 }}>Aditya Verma</span>
+            {' '}· Built with Next.js, Tailwind & Framer Motion
           </p>
-          <p className="text-gray-400 text-sm">
-            Built with{' '}
-            <span className="text-indigo-400">Next.js</span>,{' '}
-            <span className="text-indigo-400">Tailwind CSS</span>, and{' '}
-            <span className="text-indigo-400">Framer Motion</span>.
+          <p style={{ margin: '4px 0 0', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+            © {new Date().getFullYear()} All rights reserved.
           </p>
         </motion.div>
 
-        {/* Right Section: Socials */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex gap-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          viewport={{ once: true }}
+          style={{ display: 'flex', gap: '8px' }}
         >
-          {[
-            {
-              href: 'https://github.com/adityaverma9524',
-              icon: <FaGithub className="w-5 h-5" />,
-              label: 'GitHub',
-            },
-            {
-              href: 'https://www.linkedin.com/in/aditya-verma-914415196/',
-              icon: <FaLinkedin className="w-5 h-5 text-blue-400" />,
-              label: 'LinkedIn',
-            },
-            {
-              href: 'mailto:averma6_be22@thapar.edu',
-              icon: <FaEnvelope className="w-5 h-5 text-red-400" />,
-              label: 'Email',
-            },
-            {
-              href: 'https://leetcode.com/u/adityaverma0101',
-              icon: <SiLeetcode className="w-5 h-5 text-yellow-400" />,
-              label: 'LeetCode',
-            },
-            {
-              href: 'https://www.instagram.com/aditya_verma1',
-              icon: <FaInstagram className="w-5 h-5 text-pink-400" />,
-              label: 'Instagram',
-            },
-          ].map((social, idx) => (
+          {socials.map((s) => (
             <a
-              key={idx}
-              href={social.href}
+              key={s.label}
+              href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={social.label}
-              className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-110 hover:shadow-[0_0_15px_rgba(139,92,246,0.4)] transition-all duration-300"
+              aria-label={s.label}
+              style={{
+                width: '34px', height: '34px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'rgba(201,168,76,0.06)',
+                border: '1px solid rgba(201,168,76,0.12)',
+                borderRadius: '7px',
+                color: 'var(--text-secondary)',
+                textDecoration: 'none',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold-light)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.35)'; }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.borderColor = 'rgba(201,168,76,0.12)'; }}
             >
-              {social.icon}
+              {s.icon}
             </a>
           ))}
         </motion.div>

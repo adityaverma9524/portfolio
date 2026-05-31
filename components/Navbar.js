@@ -3,27 +3,23 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const links = ['about', 'experience', 'projects', 'skills', 'education', 'certificates', 'contact'];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [scrolled, setScrolled] = useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const links = ["about", "education", "skills", "projects", "certificates", "contact"];
-
-  // Detect current scroll section
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
+      setScrolled(window.scrollY > 40);
       let current = '';
       links.forEach((id) => {
         const section = document.getElementById(id);
-        if (section && section.offsetTop - 80 <= scrollY) {
-          current = id;
-        }
+        if (section && section.offsetTop - 100 <= window.scrollY) current = id;
       });
       setActiveSection(current);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -32,72 +28,70 @@ export default function Navbar() {
     <motion.header
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md shadow-md border-b border-white/10"
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      style={{
+        position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 50,
+        background: scrolled ? 'rgba(20,20,24,0.92)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(201,168,76,0.1)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        transition: 'all 0.4s ease',
+      }}
     >
-      <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between text-white">
+      <nav style={{ maxWidth: '1200px', margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
         <motion.a
           href="#"
-          whileHover={{ scale: 1.08 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-          className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 to-fuchsia-400 bg-clip-text text-transparent"
+          whileHover={{ scale: 1.02 }}
+          style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', letterSpacing: '-0.01em', textDecoration: 'none' }}
         >
           Aditya Verma
         </motion.a>
 
         {/* Desktop Links */}
-        <ul className="hidden sm:flex space-x-8 text-sm font-medium">
+        <ul style={{ display: 'flex', gap: '32px', listStyle: 'none', margin: 0, padding: 0 }} className="hidden sm:flex">
           {links.map((item) => (
             <li key={item}>
               <a
                 href={`#${item}`}
-                className={`group relative inline-block transition ${
-                  activeSection === item ? 'text-indigo-400' : 'text-gray-200'
-                }`}
+                className={`nav-link ${activeSection === item ? 'active' : ''}`}
               >
-                <span className="group-hover:text-indigo-400 transition-colors duration-200">
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
-                </span>
-                {/* Animated underline */}
-                <span
-                  className={`absolute left-0 -bottom-1 h-[2px] bg-gradient-to-r from-indigo-400 to-fuchsia-400 transition-all duration-300 ${
-                    activeSection === item ? 'w-full' : 'w-0'
-                  } group-hover:w-full`}
-                />
+                {item.charAt(0).toUpperCase() + item.slice(1)}
               </a>
             </li>
           ))}
         </ul>
 
-        {/* Mobile Toggle Button */}
-        <div className="sm:hidden">
-          <button onClick={toggleMenu} className="text-gray-200 focus:outline-none">
-            {isOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        </div>
+        {/* Mobile Toggle */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="sm:hidden"
+          style={{ background: 'none', border: 'none', color: 'var(--gold-light)', cursor: 'pointer' }}
+        >
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </nav>
 
-      {/* Mobile Menu with Slide Animation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -15 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="sm:hidden px-6 pb-4 pt-2 bg-black/80 backdrop-blur-md text-sm text-white space-y-3 shadow-lg border-t border-white/10"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="sm:hidden"
+            style={{ background: 'rgba(20,20,24,0.97)', borderTop: '1px solid rgba(201,168,76,0.1)', padding: '16px 24px 20px' }}
           >
             {links.map((item) => (
               <a
                 key={item}
                 href={`#${item}`}
                 onClick={() => setIsOpen(false)}
-                className={`block py-2 px-3 rounded-md transition ${
-                  activeSection === item
-                    ? 'bg-gradient-to-r from-indigo-500/20 to-fuchsia-500/20 text-indigo-400'
-                    : 'hover:text-indigo-400 hover:bg-white/5'
-                }`}
+                style={{
+                  display: 'block', padding: '10px 0',
+                  color: activeSection === item ? 'var(--gold-light)' : 'var(--text-secondary)',
+                  fontSize: '0.85rem', letterSpacing: '0.07em', textTransform: 'uppercase',
+                  textDecoration: 'none', borderBottom: '1px solid rgba(201,168,76,0.05)',
+                }}
               >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </a>
